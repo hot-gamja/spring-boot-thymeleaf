@@ -1,30 +1,4 @@
 services:
-  tomcat:
-    image: tomcat:11-jdk21-temurin-noble
-    container_name: spring-tomcat
-    ports:
-      - "8080:8080"
-    volumes:
-      # Mount exploded WAR for hot reloading (development mode)
-      - ./build/exploded:/usr/local/tomcat/webapps/ROOT
-      # Mount Tomcat logs
-      - tomcat-logs:/usr/local/tomcat/logs
-      # Mount custom Tomcat configuration (ROOT.xml for root context)
-      - ./docker/tomcat/context.xml:/usr/local/tomcat/conf/Catalina/localhost/ROOT.xml:ro
-    environment:
-      # Database connection settings
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_NAME=spring-framework-db
-      - DB_USER=user
-      - DB_PASSWORD=password
-      # JVM options
-      - CATALINA_OPTS=-Xms512m -Xmx1024m -XX:+UseG1GC
-    depends_on:
-      - postgres
-    networks:
-      - app-network
-
   postgres:
     image: postgres:18
     container_name: spring-postgres
@@ -54,6 +28,4 @@ networks:
 
 volumes:
   postgres-data:
-    driver: local
-  tomcat-logs:
     driver: local
