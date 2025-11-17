@@ -1,0 +1,139 @@
+# ====================================
+# Gradle Build System
+# ====================================
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ====================================
+# IDE - IntelliJ IDEA
+# ====================================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# ====================================
+# IDE - Eclipse
+# ====================================
+.classpath
+.project
+.settings/
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+.metadata/
+*.launch
+.factorypath
+
+# ====================================
+# IDE - VSCode
+# ====================================
+.vscode/
+*.code-workspace
+.history/
+
+# ====================================
+# Java & Spring Framework
+# ====================================
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# ====================================
+# Logs
+# ====================================
+*.log
+logs/
+log/
+*.log.*
+*.log.gz
+
+# ====================================
+# OS Generated Files
+# ====================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# ====================================
+# Environment & Configuration
+# ====================================
+.env
+.env.local
+.env.*.local
+application-local.properties
+application-local.yml
+**/src/main/resources/application-local.*
+
+# ====================================
+# Database & Local Data
+# ====================================
+*.db
+*.sqlite
+*.sql.backup
+
+# ====================================
+# Docker Volumes & Local Development
+# ====================================
+docker/volumes/
+docker/data/
+*.pid
+
+# ====================================
+# Temporary Files
+# ====================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~.nib
+
+# ====================================
+# Maven (if project switches to Maven)
+# ====================================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ====================================
+# Test Coverage Reports
+# ====================================
+coverage/
+*.exec
+.jacoco/
+
+# ====================================
+# Node (if frontend dependencies added)
+# ====================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock

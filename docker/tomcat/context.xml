@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tomcat Context Configuration for Development Mode
+  - Enables hot reloading of classes and JSP files
+  - Configured for root (/) context path
+-->
+<Context
+    path=""
+    docBase="/usr/local/tomcat/webapps/ROOT"
+    reloadable="true"
+    crossContext="true">
+
+    <!-- Enable automatic reloading when classes change -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/classes/**</WatchedResource>
+
+    <!-- Session configuration for development -->
+    <Manager pathname="" />
+
+    <!-- Development mode: disable caching for JSP -->
+    <JarScanner>
+        <JarScanFilter defaultPluggabilityScan="false" />
+    </JarScanner>
+</Context>
