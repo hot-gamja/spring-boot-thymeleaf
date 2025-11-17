@@ -1,11 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${user.id == null ? 'Create User' : 'Edit User'}</title>
+    <title th:text="${user.id == null ? 'Create User' : 'Edit User'}">User Form</title>
     <style>
         * {
             margin: 0;
@@ -87,27 +85,27 @@
 </head>
 <body>
     <div class="container">
-        <h1>${user.id == null ? 'Create New User' : 'Edit User'}</h1>
+        <h1 th:text="${user.id == null ? 'Create New User' : 'Edit User'}">User Form</h1>
 
-        <form action="${user.id == null ? pageContext.request.contextPath.concat('/users') : pageContext.request.contextPath.concat('/users/').concat(user.id.toString())}" method="post">
+        <form th:action="${user.id == null ? '/users' : '/users/' + user.id}" th:object="${user}" method="post">
             <div class="form-group">
                 <label for="username">Username *</label>
-                <input type="text" id="username" name="username" value="${user.username}" required>
+                <input type="text" id="username" name="username" th:value="*{username}" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" id="email" name="email" value="${user.email}" required>
+                <input type="email" id="email" name="email" th:value="*{email}" required>
             </div>
 
             <div class="form-group">
                 <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" value="${user.fullName}">
+                <input type="text" id="fullName" name="fullName" th:value="*{fullName}">
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">${user.id == null ? 'Create' : 'Update'}</button>
-                <a href="${pageContext.request.contextPath}/users" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary" th:text="${user.id == null ? 'Create' : 'Update'}">Submit</button>
+                <a th:href="@{/users}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

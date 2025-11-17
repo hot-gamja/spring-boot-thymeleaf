@@ -15,14 +15,7 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
 
-  # MVC Configuration
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
-    static-path-pattern: /resources/**
-
-  # Thymeleaf Configuration (나중에 JSP를 대체할 예정)
+  # Thymeleaf Configuration
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

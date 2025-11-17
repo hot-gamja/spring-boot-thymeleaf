@@ -34,16 +34,10 @@ dependencies {
     implementation 'org.postgresql:postgresql'
     runtimeOnly 'com.zaxxer:HikariCP'
 
-    // JSP Support (Spring Boot에서는 embedded Tomcat이 JSP를 기본 지원하지 않으므로 추가)
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
-    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
-
-    // Thymeleaf (나중에 JSP를 대체할 예정)
+    // Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    // Spring Boot DevTools (개발 편의성)
+    // Spring Boot DevTools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // Spring Boot Configuration Processor
