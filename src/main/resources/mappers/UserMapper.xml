@@ -10,35 +10,36 @@
         <result property="username" column="username"/>
         <result property="email" column="email"/>
         <result property="fullName" column="full_name"/>
+        <result property="phoneNumber" column="phone_number"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
     </resultMap>
 
     <!-- Select all users -->
     <select id="findAll" resultMap="UserResultMap">
-        SELECT id, username, email, full_name, created_at, updated_at
+        SELECT id, username, email, full_name, phone_number , created_at, updated_at
         FROM users
         ORDER BY created_at DESC
     </select>
 
     <!-- Select user by ID -->
     <select id="findById" resultMap="UserResultMap" parameterType="long">
-        SELECT id, username, email, full_name, created_at, updated_at
+        SELECT id, username, email, full_name, phone_number,created_at, updated_at
         FROM users
         WHERE id = #{id}
     </select>
 
     <!-- Select user by username -->
     <select id="findByUsername" resultMap="UserResultMap" parameterType="string">
-        SELECT id, username, email, full_name, created_at, updated_at
+        SELECT id, username, email, full_name, phone_number,created_at, updated_at
         FROM users
         WHERE username = #{username}
     </select>
 
     <!-- Insert new user -->
     <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO users (username, email, full_name)
-        VALUES (#{username}, #{email}, #{fullName})
+        INSERT INTO users (username, email, full_name, phone_number )
+        VALUES (#{username}, #{email}, #{fullName}, #{phoneNumber})
     </insert>
 
     <!-- Update user -->
@@ -46,7 +47,8 @@
         UPDATE users
         SET username = #{username},
             email = #{email},
-            full_name = #{fullName}
+            full_name = #{fullName},
+            phone_number = #{phoneNumber}
         WHERE id = #{id}
     </update>
 

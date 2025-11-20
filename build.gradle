@@ -42,6 +42,12 @@ dependencies {
 
     // Spring Boot Configuration Processor
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+
 }
 
 war {
