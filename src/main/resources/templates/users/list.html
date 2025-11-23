@@ -137,6 +137,7 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Full Name</th>
+                    <th>phone Number</th>
                     <th>Created At</th>
                     <th>Actions</th>
                 </tr>
@@ -147,6 +148,7 @@
                     <td th:text="${user.username}">username</td>
                     <td th:text="${user.email}">email@example.com</td>
                     <td th:text="${user.fullName}">Full Name</td>
+                    <td th:text="${user.phoneNumber}">phone Number</td>
                     <td th:text="${user.createdAt}">2025-01-01</td>
                     <td class="actions">
                         <a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-info btn-small">View</a>
