@@ -55,6 +55,9 @@ public class UserService {
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be empty");
         }
+        if (user.getPhoneNumber() == null || user.getPhoneNumber().trim().isEmpty()){
+            throw new IllegalArgumentException("Phone Number cannot be empty");
+        }
 
         userDao.insert(user);
         return user;
