@@ -64,7 +64,7 @@ server:
 
 # Photo Upload Configuration
 photo:
-  upload-dir: /home/USER/uploads/photos
+  upload-dir: /home/hot-gamja/uploads/photos
 
 ---
 # Development Profile
@@ -74,7 +74,7 @@ spring:
       on-profile: dev
 
 photo:
-  upload-dir: /home/USER/uploads/photos
+  upload-dir: /home/hot-gamja/uploads/photos
 
 ---
 # Production Profile

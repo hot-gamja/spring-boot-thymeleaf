@@ -128,8 +128,11 @@
 
         <!-- Photo List -->
         <div th:if="${not #lists.isEmpty(photos)}" class="photo-list">
-            <div th:each="photo, stat : ${photos}"
-                 th:replace="fragments/organisms/photo-list-item :: photoListItem(${photo}, ${stat.index})">
+            <div th:each="photo, stat : ${photos}" class="photo-list-item">
+                <a th:href="@{/photos/{id}(id=${photo.id})}" class="photo-list-link">
+                    <span class="photo-number" th:text="${#numbers.formatInteger(stat.index + 1, 2)}">01</span>
+                    <span class="photo-title" th:text="${photo.title}">Photo Title</span>
+                </a>
             </div>
         </div>
 
