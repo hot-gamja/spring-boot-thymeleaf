@@ -61,3 +61,27 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+
+# Photo Upload Configuration
+photo:
+  upload-dir: /home/USER/uploads/photos
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+photo:
+  upload-dir: /home/USER/uploads/photos
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+photo:
+  upload-dir: /opt/myapp/uploads/photos

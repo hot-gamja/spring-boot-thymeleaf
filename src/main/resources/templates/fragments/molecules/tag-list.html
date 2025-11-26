@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Molecule: Tag List - displays multiple tags as a horizontal list of pills -->
+<div th:fragment="tagList(tagsString)" class="tag-list">
+    <th:block th:if="${tagsString != null and !#strings.isEmpty(tagsString)}">
+        <th:block th:each="tag, iterStat : ${#strings.arraySplit(tagsString, ',')}">
+            <span th:replace="fragments/atoms/tag-pill :: tagPill(${#strings.trim(tag)})">tag</span>
+        </th:block>
+    </th:block>
+    <span th:if="${tagsString == null or #strings.isEmpty(tagsString)}" class="meta-value no-tags">No tags</span>
+</div>
+
+</body>
+</html>

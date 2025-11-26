@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Molecule: Meta Row - displays a label + value pair in a single row -->
+<div th:fragment="metaRow(label, value)" class="meta-row">
+    <span th:replace="fragments/atoms/meta-label :: metaLabel(${label})">Label</span>
+    <span class="meta-separator">:</span>
+    <span th:replace="fragments/atoms/meta-value :: metaValue(${value})">Value</span>
+</div>
+
+</body>
+</html>
