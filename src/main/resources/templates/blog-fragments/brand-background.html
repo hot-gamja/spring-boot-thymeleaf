@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!--
+        Brand Background Fragment
+
+        역할:
+        - dayloog.com처럼 "DAYLOOG"를 반복하는 배경 텍스트
+        - 여기서는 "HOT GAMJA LAB"을 2D 그리드로 반복
+        - 배경처럼 흐릿하게 표시
+
+        사용 방법:
+        <div th:replace="~{blog-fragments/brand-background :: brand-bg}"></div>
+
+        원리:
+        - Thymeleaf 반복문으로 텍스트를 여러 번 렌더링
+        - CSS로 투명도와 위치 조정
+    -->
+    <div th:fragment="brand-bg" class="brand-background">
+        <!--
+            행(row)을 여러 개 만들기
+            th:each: 0부터 9까지 (총 10행)
+        -->
+        <div th:each="row : ${#numbers.sequence(0, 9)}" class="brand-row">
+            <!--
+                각 행마다 열(column)을 여러 개 만들기
+                th:each: 0부터 4까지 (총 5열)
+                -> 10행 x 5열 = 50개의 텍스트
+            -->
+            <span th:each="col : ${#numbers.sequence(0, 4)}" class="brand-text">
+                HOT GAMJA LAB
+            </span>
+        </div>
+    </div>
+
+    <!--
+        참고:
+        - ${#numbers.sequence(start, end)} : Thymeleaf의 유틸리티
+        - 0부터 9까지의 숫자 배열을 생성
+        - 실제 값은 사용하지 않고 반복 횟수만 활용
+
+        CSS에서 할 일:
+        - .brand-background: 고정 위치, z-index 낮게
+        - .brand-text: 큰 폰트, 낮은 투명도, 회색
+    -->
+</body>
+</html>

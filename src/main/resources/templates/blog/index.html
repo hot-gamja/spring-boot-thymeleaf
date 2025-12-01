@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      data-font-size="M"
+      data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- 페이지 제목 -->
+    <title th:text="${pageTitle} ?: 'HOT GAMJA LAB - 기술 블로그'">HOT GAMJA LAB</title>
+
+    <!-- 메타 태그 -->
+    <meta name="description" content="개발 공부와 프로젝트를 기록하는 기술 블로그">
+    <meta name="author" content="HOT GAMJA">
+
+    <!-- CSS 파일들 -->
+    <link rel="stylesheet" th:href="@{/css/blog-base.css}">
+    <link rel="stylesheet" th:href="@{/css/blog-layout.css}">
+    <link rel="stylesheet" th:href="@{/css/blog-post.css}">
+    <link rel="stylesheet" th:href="@{/css/blog-responsive.css}">
+</head>
+<body>
+    <!--
+        블로그 홈 - 포스트 리스트 페이지
+
+        Controller에서 전달받는 데이터:
+        - posts: 포스트 목록 (List<Post>)
+        - totalCount: 전체 포스트 개수
+        - filterType: "category" 또는 "tag" (필터링 시)
+        - filterValue: 필터 값 (예: "SPRING")
+    -->
+
+    <!-- 전체 컨테이너 -->
+    <div class="blog-container">
+        <!-- About 패널 -->
+        <div th:replace="~{blog-fragments/about :: about-panel}"></div>
+
+        <!-- Brand Background -->
+        <div th:replace="~{blog-fragments/brand-background :: brand-bg}"></div>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- 헤더: 페이지 제목 및 필터 정보 -->
+                <header class="page-header">
+                    <!--
+                        필터링 중인 경우 (카테고리/태그 페이지)
+                        예: "SPRING 카테고리의 글"
+                    -->
+                    <div th:if="${filterType != null && filterValue != null}" class="filter-info">
+                        <h2 class="page-title">
+                            <!-- 카테고리 필터 -->
+                            <span th:if="${filterType == 'category'}"
+                                  th:text="${filterValue} + ' 카테고리'">SPRING 카테고리</span>
+
+                            <!-- 태그 필터 -->
+                            <span th:if="${filterType == 'tag'}"
+                                  th:text="'#' + ${filterValue}">태그</span>
+                        </h2>
+                        <p class="post-count" th:text="${totalCount} + '개의 글'">5개의 글</p>
+                    </div>
+
+                    <!--
+                        필터링 아닐 때 (전체 글 보기)
+                    -->
+                    <div th:unless="${filterType != null && filterValue != null}" class="filter-info">
+                        <h2 class="page-title">모든 글</h2>
+                        <p class="post-count" th:text="${totalCount} + '개의 글'">5개의 글</p>
+                    </div>
+                </header>
+
+                <!--
+                    포스트 리스트 영역
+
+                    data-view="default": 기본 보기 모드
+                    - JavaScript에서 "image" 모드로 전환 가능
+                    - CSS에서 [data-view="default"], [data-view="image"] 선택자로 스타일 분기
+                -->
+                <div class="post-list" data-view="default">
+                    <!--
+                        Thymeleaf 반복문으로 포스트 카드 생성
+
+                        th:each="post : ${posts}"
+                        - Controller에서 model.addAttribute("posts", ...)로 전달한 리스트 사용
+                        - 각 항목을 post 변수에 담아서 반복
+                    -->
+                    <article th:each="post : ${posts}" class="post-card">
+                        <!-- 포스트 카드 링크 (전체 카드 클릭 가능) -->
+                        <a th:href="@{/posts/{slug}(slug=${post.slug})}" class="post-card-link">
+                            <!--
+                                카테고리 배지
+                                예: SPRING, DOCKER, ALGORITHM
+                            -->
+                            <div class="post-category">
+                                <span class="category-badge" th:text="${post.category}">SPRING</span>
+                            </div>
+
+                            <!-- 포스트 제목 -->
+                            <h3 class="post-title" th:text="${post.title}">
+                                Spring Boot와 Docker로 로컬 개발 환경 구축하기
+                            </h3>
+
+                            <!-- 포스트 설명 (요약) -->
+                            <p class="post-description" th:text="${post.description}">
+                                Docker Compose를 활용해 Spring Boot 애플리케이션을 컨테이너로 실행하는 방법을 알아봅니다.
+                            </p>
+
+                            <!-- 메타 정보: 날짜 및 태그 -->
+                            <div class="post-meta">
+                                <!-- 작성 날짜 -->
+                                <time class="post-date"
+                                      th:datetime="${post.date}"
+                                      th:text="${#temporals.format(post.date, 'yyyy.MM.dd')}">
+                                    2025.01.15
+                                </time>
+
+                                <!--
+                                    태그 리스트
+                                    th:if="${post.tags != null and !post.tags.isEmpty()}"
+                                    - 태그가 있을 때만 표시
+                                -->
+                                <div class="post-tags" th:if="${post.tags != null and !post.tags.isEmpty()}">
+                                    <!--
+                                        태그 반복 (최대 3개만 표시)
+                                        th:each="tag, iterStat : ${post.tags}"
+                                        - iterStat.index: 현재 인덱스
+                                    -->
+                                    <span th:each="tag, iterStat : ${post.tags}"
+                                          th:if="${iterStat.index < 3}"
+                                          class="tag"
+                                          th:text="'#' + ${tag}">
+                                        #Docker
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!--
+                                썸네일 이미지 (있을 경우만 표시)
+                                현재 더미 데이터에는 없지만, 나중을 위해 준비
+                            -->
+                            <div class="post-thumbnail" th:if="${post.thumbnailUrl != null}">
+                                <img th:src="${post.thumbnailUrl}"
+                                     th:alt="${post.title}"
+                                     loading="lazy">
+                            </div>
+                        </a>
+                    </article>
+
+                    <!--
+                        포스트가 없을 때 (빈 상태)
+                        th:if="${posts == null or posts.isEmpty()}"
+                    -->
+                    <div th:if="${posts == null or posts.isEmpty()}" class="empty-state">
+                        <p class="empty-message">아직 작성된 글이 없습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Reader Controls -->
+        <div th:replace="~{blog-fragments/reader-controls :: controls}"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script th:src="@{/js/reader-controls.js}"></script>
+    <script th:src="@{/js/scroll-horizontal.js}"></script>
+
+    <!--
+        설명:
+
+        1. th:each로 반복:
+           - ${posts}의 각 항목을 post 변수에 담아 반복
+           - post.title, post.description 등으로 접근
+
+        2. th:href="@{/posts/{slug}(slug=${post.slug})}":
+           - URL: /posts/spring-docker-setup
+           - {slug} 부분을 post.slug 값으로 치환
+
+        3. th:text="${post.title}":
+           - HTML 태그 안의 텍스트를 post.title 값으로 교체
+           - XSS 방지: 자동 이스케이프 처리
+
+        4. ${#temporals.format(date, 'yyyy.MM.dd')}:
+           - Thymeleaf의 날짜 포맷 유틸리티
+           - LocalDate를 원하는 형식으로 표시
+
+        5. th:if 조건문:
+           - 조건이 true일 때만 해당 요소 렌더링
+           - 예: 태그가 있을 때만 태그 영역 표시
+
+        6. dayloog 스타일 포인트:
+           - .post-list: 가로 스크롤 가능한 카드 리스트
+           - .post-card: 각 글을 카드 형태로 표시
+           - CSS에서 가로 배치 + 스크롤 처리
+    -->
+</body>
+</html>
