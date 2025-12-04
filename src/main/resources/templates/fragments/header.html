@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<body>
+    <!-- 헤더 fragment -->
+    <header th:fragment="header" class="header">
+        <div class="header-container">
+            <!-- 왼쪽: 햄버거 메뉴 아이콘 -->
+            <button class="hamburger-menu" aria-label="메뉴 열기">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- 중앙: 로고 -->
+            <div class="logo">
+                <a th:href="@{/}">HotGamja Lab</a>
+            </div>
+
+            <!-- 오른쪽: 상단 네비게이션 메뉴 -->
+            <nav class="top-nav">
+                <ul>
+                    <li><a th:href="@{/}">홈</a></li>
+                    <li><a th:href="@{/posts}">게시글</a></li>
+                    <li><a th:href="@{/about}">소개</a></li>
+                    <li><a th:href="@{/login}" class="login-btn">로그인</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'HotGamja Lab'">HotGamja Lab</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+</head>
+<body>
+    <!-- 헤더: 상단 네비게이션바 -->
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <!-- 메인 컨테이너: 사이드바 + 콘텐츠 영역 -->
+    <div class="main-container">
+        <!-- 왼쪽 사이드바 -->
+        <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="content">
+            <!-- 여기에 실제 페이지 콘텐츠가 들어갑니다 -->
+            <div th:fragment="content">
+                <!-- 기본 콘텐츠 (다른 템플릿에서 이 부분을 오버라이드할 수 있습니다) -->
+                <h1>환영합니다!</h1>
+                <p>이것은 기본 레이아웃 템플릿입니다.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <p>&copy; 2024 HotGamja Lab. All rights reserved.</p>
+    </footer>
+
+    <!-- 사이드바 토글 JavaScript -->
+    <script>
+        // 햄버거 메뉴 클릭 시 사이드바 토글
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            if (hamburger && sidebar) {
+                hamburger.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                    if (overlay) {
+                        overlay.classList.toggle('active');
+                    }
+                });
+
+                // 오버레이 클릭 시 사이드바 닫기
+                if (overlay) {
+                    overlay.addEventListener('click', function() {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

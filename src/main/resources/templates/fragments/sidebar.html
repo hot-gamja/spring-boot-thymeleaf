@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<body>
+    <!-- 사이드바 오버레이 (모바일에서 사이드바 열릴 때 배경 어둡게) -->
+    <div class="sidebar-overlay"></div>
+
+    <!-- 왼쪽 사이드바 fragment -->
+    <aside th:fragment="sidebar" class="sidebar">
+        <nav class="sidebar-nav">
+            <h3 class="sidebar-title">메뉴</h3>
+            <ul class="sidebar-menu">
+                <li>
+                    <a th:href="@{/}" class="sidebar-link">
+                        <span class="sidebar-icon">🏠</span>
+                        <span class="sidebar-text">홈</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/about}" class="sidebar-link">
+                        <span class="sidebar-icon">ℹ️</span>
+                        <span class="sidebar-text">소개</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/blog}" class="sidebar-link">
+                        <span class="sidebar-icon">📝</span>
+                        <span class="sidebar-text">게시글</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/gallery}" class="sidebar-link">
+                        <span class="sidebar-icon">📷</span>
+                        <span class="sidebar-text">Photo Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <p class="sidebar-version">v1.0.0</p>
+            </div>
+        </nav>
+    </aside>
+</body>
+</html>
