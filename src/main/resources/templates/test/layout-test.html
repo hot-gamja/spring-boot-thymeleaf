@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::content})}"
+      lang="ko">
+<head>
+    <title>Layout Test</title>
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div th:fragment="content">
+        <h1>Layout Test Page</h1>
+        <p>새로운 Layout, Header, Sidebar 구조가 정상적으로 작동하는지 테스트하는 페이지입니다.</p>
+
+        <section style="margin-top: 40px;">
+            <h2>테스트 항목</h2>
+            <ul style="line-height: 2;">
+                <li><strong>Header:</strong> 상단에 검은색 헤더가 표시되어야 합니다</li>
+                <li><strong>Hamburger Menu:</strong> 왼쪽 상단 햄버거 아이콘을 클릭하면 사이드바가 나타나야 합니다</li>
+                <li><strong>Sidebar:</strong> 사이드바에는 홈, 소개, 게시글, Photo Gallery 메뉴가 있어야 합니다</li>
+                <li><strong>Top Navigation:</strong> 넓은 화면에서는 상단 우측에 홈, 게시글, 소개, 로그인 메뉴가 표시됩니다</li>
+                <li><strong>Responsive:</strong> 1024px 이상에서는 사이드바가 항상 고정되어 있어야 합니다</li>
+                <li><strong>Footer:</strong> 하단에 푸터가 표시되어야 합니다</li>
+            </ul>
+        </section>
+
+        <section style="margin-top: 40px; padding: 20px; background-color: #f3f4f6; border-radius: 8px;">
+            <h2>반응형 테스트</h2>
+            <p>브라우저 창 크기를 조절하면서 다음을 확인하세요:</p>
+            <ul style="line-height: 2;">
+                <li><strong>Desktop (1024px 이상):</strong> 사이드바가 항상 왼쪽에 고정</li>
+                <li><strong>Tablet/Mobile (1024px 미만):</strong> 사이드바가 숨겨지고 햄버거 메뉴로만 열림</li>
+                <li><strong>Mobile (768px 미만):</strong> 상단 네비게이션이 숨겨지고 모든 메뉴는 사이드바로 접근</li>
+            </ul>
+        </section>
+
+        <section style="margin-top: 40px;">
+            <h2>다음 단계</h2>
+            <p>이 레이아웃이 정상적으로 작동하면:</p>
+            <ol style="line-height: 2;">
+                <li>sidebar.html의 오버레이 구조 수정</li>
+                <li>기존 페이지들을 이 레이아웃으로 마이그레이션 (선택)</li>
+            </ol>
+        </section>
+    </div>
+</body>
+</html>
