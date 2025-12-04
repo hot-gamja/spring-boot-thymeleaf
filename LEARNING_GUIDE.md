@@ -1,6 +1,6 @@
 # 🎓 HOT GAMJA LAB - 기술 블로그 학습 가이드
 
-> dayloog.com 스타일의 기술 블로그를 만들면서 Spring Boot, Thymeleaf, Vanilla JS를 배워봅시다!
+>  기술 블로그를 만들면서 Spring Boot, Thymeleaf, Vanilla JS를 배워봅시다!
 
 ---
 
@@ -22,7 +22,7 @@
 
 ### 무엇을 만들었나?
 
-**dayloog.com** 스타일의 미니멀한 기술 블로그입니다.
+미니멀한 기술 블로그입니다.
 
 #### 주요 특징
 - 🎨 **다크/라이트 테마** 지원
