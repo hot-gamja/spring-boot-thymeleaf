@@ -37,11 +37,11 @@ ul {
 }
 
 .header-container {
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
     height: 60px;
 }
 
@@ -73,8 +73,10 @@ ul {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    flex: 1;
-    text-align: center;
+    flex: 0;
+    text-align: left;
+    margin-right: auto;
+    white-space: nowrap;
 }
 
 .logo a {
@@ -223,20 +225,7 @@ ul {
     transition: margin-left 0.3s ease;
 }
 
-/* 사이드바가 항상 보이는 넓은 화면에서는 여백 추가 */
-@media (min-width: 1024px) {
-    .sidebar {
-        left: 0; /* 넓은 화면에서는 항상 표시 */
-    }
-
-    .content {
-        margin-left: 220px; /* 사이드바 너비만큼 여백 */
-    }
-
-    .sidebar-overlay {
-        display: none !important; /* 넓은 화면에서는 오버레이 불필요 */
-    }
-}
+/* 사이드바는 모든 화면 크기에서 기본적으로 숨김 (햄버거 메뉴로만 토글) */
 
 /* ========================================
    푸터 스타일
