@@ -44,10 +44,10 @@
     <!-- 전체 컨테이너 -->
     <div class="blog-container">
         <!-- About 패널 (Fragment 삽입) -->
-        <div th:replace="~{blog-fragments/about :: about-panel}"></div>
+        <div th:replace="~{blog/fragments/about :: about-panel}"></div>
 
         <!-- Brand Background (Fragment 삽입) -->
-        <div th:replace="~{blog-fragments/brand-background :: brand-bg}"></div>
+        <div th:replace="~{blog/fragments/brand-background :: brand-bg}"></div>
 
         <!-- 메인 콘텐츠 영역 -->
         <main class="main-content">
@@ -75,7 +75,7 @@
         </main>
 
         <!-- Reader Controls (Fragment 삽입) -->
-        <div th:replace="~{blog-fragments/reader-controls :: controls}"></div>
+        <div th:replace="~{blog/fragments/reader-controls :: controls}"></div>
     </div>
 
     <!-- JavaScript 파일들 (나중에 만들 예정) -->

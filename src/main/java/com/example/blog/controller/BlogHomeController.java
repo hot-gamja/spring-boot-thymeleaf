@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * 블로그 홈 화면을 담당하는 Controller
  *
- * URL: "/"
- * 기능: 전체 포스트 목록을 보여주는 메인 페이지
+ * URL: "/blog"
+ * 기능: 전체 포스트 목록을 보여주는 블로그 메인 페이지
  *
  * @Controller: 이 클래스가 웹 요청을 처리하는 컨트롤러임을 Spring에게 알림
  *              + View(Thymeleaf 템플릿)를 반환할 수 있음
@@ -43,21 +43,21 @@ public class BlogHomeController {
     /**
      * 블로그 홈 화면 (포스트 리스트)
      *
-     * URL: GET "/"
+     * URL: GET "/blog"
      * View: templates/blog/index.html
      *
      * @param model Thymeleaf 템플릿에 데이터를 전달하는 객체
      * @return 템플릿 파일 경로 ("blog/index" -> templates/blog/index.html)
      *
      * 동작 순서:
-     * 1. 사용자가 "/" 접속
+     * 1. 사용자가 "/blog" 접속
      * 2. 이 메서드 실행
      * 3. PostService에서 전체 포스트 목록 조회
      * 4. Model에 데이터 담기 (Thymeleaf가 사용할 수 있게)
      * 5. "blog/index" 반환 -> Spring이 templates/blog/index.html 렌더링
      * 6. 사용자에게 HTML 응답
      */
-    @GetMapping("/")
+    @GetMapping("/blog")
     public String home(Model model) {
         // 1. Service에서 전체 포스트 목록 가져오기 (최신순 정렬)
         List<Post> posts = postService.getAllPosts();

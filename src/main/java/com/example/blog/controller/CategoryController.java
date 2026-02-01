@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 /**
- * 카테고리/태그별 포스트 필터링을 담당하는 Controller (선택 사항)
+ * 카테고리/태그별 포스트 필터링을 담당하는 Controller
  *
  * URL:
- * - "/categories/{category}" : 특정 카테고리의 글만 보기
- * - "/tags/{tag}" : 특정 태그를 포함한 글만 보기
+ * - "/blog/categories/{category}" : 특정 카테고리의 글만 보기
+ * - "/blog/tags/{tag}" : 특정 태그를 포함한 글만 보기
  *
  * 기능:
  * - 사용자가 "SPRING" 카테고리를 클릭하면 해당 글들만 필터링
@@ -37,8 +37,8 @@ public class CategoryController {
     /**
      * 특정 카테고리의 포스트 목록
      *
-     * URL: GET "/categories/{category}"
-     * 예: "/categories/SPRING", "/categories/DOCKER"
+     * URL: GET "/blog/categories/{category}"
+     * 예: "/blog/categories/SPRING", "/blog/categories/DOCKER"
      * View: templates/blog/index.html (홈과 동일한 레이아웃, 필터링만 다름)
      *
      * @param category URL에서 추출한 카테고리 이름
@@ -46,12 +46,12 @@ public class CategoryController {
      * @return 템플릿 파일 경로
      *
      * 동작 순서:
-     * 1. 사용자가 "/categories/SPRING" 접속
+     * 1. 사용자가 "/blog/categories/SPRING" 접속
      * 2. category = "SPRING"으로 포스트 필터링
      * 3. 해당 카테고리의 포스트만 Model에 담기
      * 4. 홈과 동일한 템플릿 사용 (또는 별도 템플릿 사용 가능)
      */
-    @GetMapping("/categories/{category}")
+    @GetMapping("/blog/categories/{category}")
     public String postsByCategory(@PathVariable String category, Model model) {
         // 1. 해당 카테고리의 포스트만 조회
         List<Post> posts = postService.getPostsByCategory(category);
@@ -71,8 +71,8 @@ public class CategoryController {
     /**
      * 특정 태그를 포함한 포스트 목록
      *
-     * URL: GET "/tags/{tag}"
-     * 예: "/tags/Docker", "/tags/Spring Boot"
+     * URL: GET "/blog/tags/{tag}"
+     * 예: "/blog/tags/Docker", "/blog/tags/Spring Boot"
      * View: templates/blog/index.html
      *
      * @param tag URL에서 추출한 태그 이름
@@ -84,7 +84,7 @@ public class CategoryController {
      *   예: "Spring Boot" -> "Spring%20Boot"
      * - Spring이 자동으로 디코딩해주므로 별도 처리 불필요
      */
-    @GetMapping("/tags/{tag}")
+    @GetMapping("/blog/tags/{tag}")
     public String postsByTag(@PathVariable String tag, Model model) {
         // 1. 해당 태그를 포함한 포스트 조회
         List<Post> posts = postService.getPostsByTag(tag);

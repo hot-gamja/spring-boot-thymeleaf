@@ -14,13 +14,13 @@ import java.util.Optional;
 /**
  * 개별 포스트 상세 페이지를 담당하는 Controller
  *
- * URL: "/posts/{slug}"
+ * URL: "/blog/posts/{slug}"
  * 기능: 특정 포스트의 상세 내용을 보여줌 + 관련 포스트 추천
  *
- * @RequestMapping("/posts"): 이 컨트롤러의 모든 메서드는 "/posts"로 시작
+ * @RequestMapping("/blog/posts"): 이 컨트롤러의 모든 메서드는 "/blog/posts"로 시작
  */
 @Controller
-@RequestMapping("/posts")
+@RequestMapping("/blog/posts")
 public class PostController {
 
     private final PostService postService;
@@ -37,19 +37,19 @@ public class PostController {
     /**
      * 포스트 상세 페이지
      *
-     * URL: GET "/posts/{slug}"
-     * 예: "/posts/spring-docker-setup"
+     * URL: GET "/blog/posts/{slug}"
+     * 예: "/blog/posts/spring-docker-setup"
      * View: templates/blog/post-detail.html
      *
      * @param slug URL 경로에서 추출한 포스트 식별자
-     *             예: /posts/spring-docker-setup -> slug = "spring-docker-setup"
+     *             예: /blog/posts/spring-docker-setup -> slug = "spring-docker-setup"
      * @param model Thymeleaf 템플릿에 데이터 전달
      * @return 템플릿 파일 경로 또는 에러 페이지
      *
      * @PathVariable: URL 경로의 {slug} 값을 메서드 파라미터로 받아옴
      *
      * 동작 순서:
-     * 1. 사용자가 "/posts/spring-docker-setup" 접속
+     * 1. 사용자가 "/blog/posts/spring-docker-setup" 접속
      * 2. slug = "spring-docker-setup"으로 포스트 조회
      * 3. 포스트가 있으면 상세 페이지 렌더링
      * 4. 없으면 404 에러 페이지

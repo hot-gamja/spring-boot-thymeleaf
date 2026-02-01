@@ -33,10 +33,10 @@
     <!-- 전체 컨테이너 -->
     <div class="blog-container">
         <!-- About 패널 (post 객체를 넘겨서 "홈으로" 버튼 표시) -->
-        <div th:replace="~{blog-fragments/about :: about-panel}"></div>
+        <div th:replace="~{blog/fragments/about :: about-panel}"></div>
 
         <!-- Brand Background -->
-        <div th:replace="~{blog-fragments/brand-background :: brand-bg}"></div>
+        <div th:replace="~{blog/fragments/brand-background :: brand-bg}"></div>
 
         <!-- 메인 콘텐츠 영역 -->
         <main class="main-content">
@@ -47,7 +47,7 @@
                     <header class="post-header">
                         <!-- 카테고리 배지 -->
                         <div class="post-category-wrapper">
-                            <a th:href="@{/categories/{category}(category=${post.category})}"
+                            <a th:href="@{/blog/categories/{category}(category=${post.category})}"
                                class="category-badge"
                                th:text="${post.category}">
                                 SPRING
@@ -71,7 +71,7 @@
                             <!-- 태그 리스트 -->
                             <div class="post-tags" th:if="${post.tags != null and !post.tags.isEmpty()}">
                                 <a th:each="tag : ${post.tags}"
-                                   th:href="@{/tags/{tag}(tag=${tag})}"
+                                   th:href="@{/blog/tags/{tag}(tag=${tag})}"
                                    class="tag"
                                    th:text="'#' + ${tag}">
                                     #Docker
@@ -144,7 +144,7 @@
                             index.html의 post-card와 동일한 구조
                         -->
                         <article th:each="related : ${relatedPosts}" class="post-card related-card">
-                            <a th:href="@{/posts/{slug}(slug=${related.slug})}" class="post-card-link">
+                            <a th:href="@{/blog/posts/{slug}(slug=${related.slug})}" class="post-card-link">
                                 <!-- 카테고리 -->
                                 <div class="post-category">
                                     <span class="category-badge" th:text="${related.category}">SPRING</span>
@@ -176,7 +176,7 @@
         </main>
 
         <!-- Reader Controls -->
-        <div th:replace="~{blog-fragments/reader-controls :: controls}"></div>
+        <div th:replace="~{blog/fragments/reader-controls :: controls}"></div>
     </div>
 
     <!-- JavaScript -->
@@ -195,9 +195,9 @@
            - 없으면 섹션 전체가 숨겨짐 (th:if)
 
         3. 링크:
-           - 카테고리 클릭 -> /categories/SPRING
-           - 태그 클릭 -> /tags/Docker
-           - 관련 포스트 클릭 -> /posts/{slug}
+           - 카테고리 클릭 -> /blog/categories/SPRING
+           - 태그 클릭 -> /blog/tags/Docker
+           - 관련 포스트 클릭 -> /blog/posts/{slug}
 
         4. 포스트 구조:
            - Header: 카테고리, 제목, 날짜, 태그

@@ -10,7 +10,7 @@
         - dayloog.com의 About 섹션을 참고
 
         사용 방법:
-        <div th:replace="~{blog-fragments/about :: about-panel}"></div>
+        <div th:replace="~{blog/fragments/about :: about-panel}"></div>
     -->
     <aside th:fragment="about-panel" class="about-panel">
         <!-- 프로필 헤더 -->
@@ -65,10 +65,10 @@
             </a>
         </div>
 
-        <!-- 홈 버튼 (상세 페이지에서만 표시) -->
+        <!-- 블로그 홈 버튼 (상세 페이지에서만 표시) -->
         <div class="about-home-btn" th:if="${post != null}">
-            <a href="/" class="btn-home-link">
-                <span>← 홈으로</span>
+            <a th:href="@{/blog}" class="btn-home-link">
+                <span>← 블로그 홈</span>
             </a>
         </div>
     </aside>

@@ -35,10 +35,10 @@
     <!-- 전체 컨테이너 -->
     <div class="blog-container">
         <!-- About 패널 -->
-        <div th:replace="~{blog-fragments/about :: about-panel}"></div>
+        <div th:replace="~{blog/fragments/about :: about-panel}"></div>
 
         <!-- Brand Background -->
-        <div th:replace="~{blog-fragments/brand-background :: brand-bg}"></div>
+        <div th:replace="~{blog/fragments/brand-background :: brand-bg}"></div>
 
         <!-- 메인 콘텐츠 영역 -->
         <main class="main-content">
@@ -88,7 +88,7 @@
                     -->
                     <article th:each="post : ${posts}" class="post-card">
                         <!-- 포스트 카드 링크 (전체 카드 클릭 가능) -->
-                        <a th:href="@{/posts/{slug}(slug=${post.slug})}" class="post-card-link">
+                        <a th:href="@{/blog/posts/{slug}(slug=${post.slug})}" class="post-card-link">
                             <!--
                                 카테고리 배지
                                 예: SPRING, DOCKER, ALGORITHM
@@ -160,7 +160,7 @@
         </main>
 
         <!-- Reader Controls -->
-        <div th:replace="~{blog-fragments/reader-controls :: controls}"></div>
+        <div th:replace="~{blog/fragments/reader-controls :: controls}"></div>
     </div>
 
     <!-- JavaScript -->
@@ -174,8 +174,8 @@
            - ${posts}의 각 항목을 post 변수에 담아 반복
            - post.title, post.description 등으로 접근
 
-        2. th:href="@{/posts/{slug}(slug=${post.slug})}":
-           - URL: /posts/spring-docker-setup
+        2. th:href="@{/blog/posts/{slug}(slug=${post.slug})}":
+           - URL: /blog/posts/spring-docker-setup
            - {slug} 부분을 post.slug 값으로 치환
 
         3. th:text="${post.title}":
