@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<body>
+    <div th:replace="~{layout/site :: layout(~{::section})}">
+        <section>
+            <div class="pt-4 md:pt-8 pb-12">
+                <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-2">
+                    Projects
+                </h1>
+                <p class="text-secondary text-sm">
+                    Things I have built and contributed to.
+                </p>
+            </div>
+
+            <!-- Current Focus -->
+            <div class="mb-12">
+                <h2 class="text-xs font-medium text-secondary uppercase tracking-wider mb-4 pb-2 border-b border-theme">
+                    Current Focus
+                </h2>
+                <div class="space-y-4">
+                    <div class="group">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-1 min-w-0">
+                                <a href="https://github.com/hot-gamja/spring-boot-thymeleaf"
+                                   target="_blank" rel="noopener noreferrer"
+                                   class="text-base font-medium link-plain hover:text-[var(--color-link)] transition-colors">
+                                    spring-boot-thymeleaf
+                                </a>
+                                <p class="text-sm text-secondary mt-0.5">
+                                    Personal tech blog and portfolio built with Spring Boot + Thymeleaf + Tailwind CSS.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mt-2">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-soft border border-theme text-secondary">Spring Boot</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-soft border border-theme text-secondary">Thymeleaf</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-soft border border-theme text-secondary">Tailwind CSS</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-soft border border-theme text-secondary">PostgreSQL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Projects -->
+            <div class="mb-12">
+                <h2 class="text-xs font-medium text-secondary uppercase tracking-wider mb-4 pb-2 border-b border-theme">
+                    Side Projects
+                </h2>
+                <div class="space-y-4">
+                    <div class="group">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-1 min-w-0">
+                                <span class="text-base font-medium" style="color: var(--color-text);">
+                                    Photo Gallery
+                                </span>
+                                <p class="text-sm text-secondary mt-0.5">
+                                    Photo management system with file upload, tagging, and gallery views.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mt-2">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-soft border border-theme text-secondary">MyBatis</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-soft border border-theme text-secondary">File Upload</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-soft border border-theme text-secondary">CRUD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for future -->
+            <div>
+                <h2 class="text-xs font-medium text-secondary uppercase tracking-wider mb-4 pb-2 border-b border-theme">
+                    Contributions
+                </h2>
+                <p class="text-sm text-secondary italic">
+                    More projects coming soon.
+                </p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

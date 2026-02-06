@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.photo.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

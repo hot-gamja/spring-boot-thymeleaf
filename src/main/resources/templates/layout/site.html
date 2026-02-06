@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'Hot Gamja Lab'">Hot Gamja Lab</title>
+    <meta name="description" th:content="${pageDescription} ?: 'Hot Gamja Lab - Development blog and projects'">
+    <meta name="author" content="Hot Gamja">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <!-- Prevent FOUC: apply theme before render -->
+    <script>
+        (function () {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- ===== HEADER / NAV ===== -->
+    <header class="sticky top-0 z-40 border-b border-theme"
+            style="background-color: var(--color-bg); backdrop-filter: blur(8px); background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);">
+        <nav class="mx-auto max-w-shell px-4 md:px-6 h-14 flex items-center justify-between">
+            <!-- Left: Logo + nav links -->
+            <div class="flex items-center gap-1">
+                <a th:href="@{/}" class="link-plain font-semibold text-base mr-4 shrink-0">
+                    Hot Gamja
+                </a>
+                <!-- Desktop nav links -->
+                <div class="hidden md:flex items-center gap-0.5">
+                    <a th:href="@{/blog}"
+                       class="link-plain px-3 py-1.5 rounded-md text-sm nav-hover transition-colors">
+                        Blog
+                    </a>
+                    <a th:href="@{/projects}"
+                       class="link-plain px-3 py-1.5 rounded-md text-sm nav-hover transition-colors">
+                        Projects
+                    </a>
+                    <a th:href="@{/about}"
+                       class="link-plain px-3 py-1.5 rounded-md text-sm nav-hover transition-colors">
+                        About
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: icon buttons -->
+            <div class="flex items-center gap-1">
+                <a href="https://github.com/hot-gamja"
+                   target="_blank" rel="noopener noreferrer"
+                   class="link-plain p-2 rounded-md nav-hover transition-colors hidden sm:inline-flex"
+                   title="GitHub">
+                    <img th:src="@{/icons/github.svg}" class="h-5 w-5 dark:invert" alt="GitHub">
+                </a>
+                <a th:href="@{/rss}" title="RSS"
+                   class="link-plain p-2 rounded-md nav-hover transition-colors hidden sm:inline-flex">
+                    <img th:src="@{/icons/rss.svg}" class="h-5 w-5 dark:invert" alt="RSS">
+                </a>
+                <!-- Theme toggle -->
+                <button id="theme-toggle"
+                        class="p-2 rounded-md nav-hover transition-colors"
+                        type="button"
+                        aria-label="Toggle dark mode">
+                    <img th:src="@{/icons/sun.svg}" class="h-5 w-5 dark:invert hidden dark:block" alt="Light mode">
+                    <img th:src="@{/icons/moon.svg}" class="h-5 w-5 block dark:hidden" alt="Dark mode">
+                </button>
+                <!-- Mobile menu button -->
+                <button id="drawer-open"
+                        class="p-2 rounded-md nav-hover transition-colors md:hidden"
+                        type="button"
+                        aria-label="Open menu"
+                        aria-expanded="false"
+                        aria-controls="mobile-drawer">
+                    <img th:src="@{/icons/menu.svg}" class="h-5 w-5 dark:invert" alt="Menu">
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== MOBILE DRAWER ===== -->
+    <div id="drawer-overlay"
+         class="fixed inset-0 z-50 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-200"
+         aria-hidden="true"></div>
+
+    <aside id="mobile-drawer"
+           class="fixed top-0 right-0 z-50 h-full w-64 translate-x-full transition-transform duration-200 ease-out flex flex-col"
+           style="background-color: var(--color-bg);"
+           aria-hidden="true"
+           role="dialog"
+           aria-label="Navigation menu">
+        <div class="flex items-center justify-between px-4 h-14 border-b border-theme">
+            <span class="font-semibold text-sm">Menu</span>
+            <button id="drawer-close"
+                    class="p-2 rounded-md nav-hover transition-colors"
+                    type="button"
+                    aria-label="Close menu">
+                <img th:src="@{/icons/x.svg}" class="h-5 w-5 dark:invert" alt="Close">
+            </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4 px-2">
+            <a th:href="@{/}"
+               class="link-plain flex items-center px-3 py-2.5 rounded-md text-sm nav-hover transition-colors">
+                Home
+            </a>
+            <a th:href="@{/blog}"
+               class="link-plain flex items-center px-3 py-2.5 rounded-md text-sm nav-hover transition-colors">
+                Blog
+            </a>
+            <a th:href="@{/projects}"
+               class="link-plain flex items-center px-3 py-2.5 rounded-md text-sm nav-hover transition-colors">
+                Projects
+            </a>
+            <a th:href="@{/about}"
+               class="link-plain flex items-center px-3 py-2.5 rounded-md text-sm nav-hover transition-colors">
+                About
+            </a>
+            <hr class="my-3 border-theme">
+            <a href="https://github.com/hot-gamja"
+               target="_blank" rel="noopener noreferrer"
+               class="link-plain flex items-center gap-2 px-3 py-2.5 rounded-md text-sm nav-hover transition-colors">
+                <img th:src="@{/icons/github.svg}" class="h-4 w-4 dark:invert" alt="">
+                GitHub
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="flex-1 mx-auto w-full max-w-shell px-4 md:px-6 py-8 md:py-12">
+        <div th:replace="${content}">
+            <p>Page content goes here</p>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-theme mt-auto">
+        <div class="mx-auto max-w-shell px-4 md:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-secondary">
+            <p>CC BY-NC-SA 4.0 2024-PRESENT Hot Gamja</p>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/hot-gamja" target="_blank" rel="noopener noreferrer"
+                   class="text-secondary hover:text-[var(--color-text)] transition-colors">GitHub</a>
+                <a th:href="@{/rss}"
+                   class="text-secondary hover:text-[var(--color-text)] transition-colors">RSS</a>
+            </div>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/shell.js}"></script>
+</body>
+</html>

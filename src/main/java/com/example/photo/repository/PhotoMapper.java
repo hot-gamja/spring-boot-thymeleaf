@@ -1,6 +1,6 @@
-package com.example.mapper;
+package com.example.photo.repository;
 
-import com.example.model.Photo;
+import com.example.photo.domain.Photo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

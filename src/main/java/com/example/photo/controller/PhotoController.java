@@ -1,8 +1,8 @@
-package com.example.controller;
+package com.example.photo.controller;
 
-import com.example.config.PhotoProperties;
-import com.example.model.Photo;
-import com.example.service.PhotoService;
+import com.example.photo.config.PhotoProperties;
+import com.example.photo.domain.Photo;
+import com.example.photo.service.PhotoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

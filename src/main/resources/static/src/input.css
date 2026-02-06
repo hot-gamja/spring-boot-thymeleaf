@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   BASE: antfu-tone global styles
+   ======================================== */
+@layer base {
+  :root {
+    --color-bg: #fafafa;
+    --color-bg-soft: #f3f4f6;
+    --color-text: #1f2937;
+    --color-text-secondary: #6b7280;
+    --color-border: #e5e7eb;
+    --color-link: #3b82f6;
+    --color-link-hover: #2563eb;
+    --color-selection-bg: #dbeafe;
+    --color-selection-text: #1e40af;
+    --color-code-bg: #f3f4f6;
+    --color-code-border: #e5e7eb;
+    --color-nav-hover: rgba(0, 0, 0, 0.04);
+  }
+
+  .dark {
+    --color-bg: #0a0a0a;
+    --color-bg-soft: #171717;
+    --color-text: #e5e7eb;
+    --color-text-secondary: #9ca3af;
+    --color-border: #262626;
+    --color-link: #60a5fa;
+    --color-link-hover: #93bbfd;
+    --color-selection-bg: #1e3a5f;
+    --color-selection-text: #bfdbfe;
+    --color-code-bg: rgba(255, 255, 255, 0.06);
+    --color-code-border: rgba(255, 255, 255, 0.08);
+    --color-nav-hover: rgba(255, 255, 255, 0.06);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+      Arial, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  ::selection {
+    background-color: var(--color-selection-bg);
+    color: var(--color-selection-text);
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+    transition: color 0.15s ease, opacity 0.15s ease;
+  }
+
+  a:hover {
+    color: var(--color-link-hover);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ========================================
+   COMPONENTS: Reading mode (blog post only)
+   Scoped to .reading to prevent global leak
+   ======================================== */
+@layer components {
+  .reading .prose {
+    max-width: 75ch;
+    line-height: 1.75;
+    font-size: 1.0625rem;
+  }
+
+  /* Headings */
+  .reading .prose :where(h1) {
+    font-size: 2em;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-top: 0;
+    margin-bottom: 0.75em;
+    line-height: 1.2;
+  }
+
+  .reading .prose :where(h2) {
+    font-size: 1.5em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.3;
+  }
+
+  .reading .prose :where(h3) {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+    line-height: 1.35;
+  }
+
+  .reading .prose :where(h4) {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  /* Links in reading */
+  .reading .prose :where(a) {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .reading .prose :where(a:hover) {
+    text-decoration-color: currentColor;
+  }
+
+  /* Inline code */
+  .reading .prose :where(:not(pre) > code) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875em;
+    padding: 0.2em 0.4em;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-code-border);
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .reading .prose :where(:not(pre) > code)::before,
+  .reading .prose :where(:not(pre) > code)::after {
+    content: '' !important;
+  }
+
+  /* Code block (pre) */
+  .reading .prose :where(pre) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    background: var(--color-code-bg);
+    border: 1px solid var(--color-code-border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .reading .prose :where(pre code) {
+    font-size: inherit;
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    font-weight: 400;
+  }
+
+  /* Blockquote */
+  .reading .prose :where(blockquote) {
+    border-left: 3px solid var(--color-border);
+    padding-left: 1em;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  /* Lists */
+  .reading .prose :where(ul) {
+    list-style-type: disc;
+    padding-left: 1.5em;
+  }
+
+  .reading .prose :where(ol) {
+    list-style-type: decimal;
+    padding-left: 1.5em;
+  }
+
+  .reading .prose :where(li) {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  /* Table */
+  .reading .prose :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .reading .prose :where(th) {
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5em 0.75em;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .reading .prose :where(td) {
+    padding: 0.5em 0.75em;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Horizontal rule */
+  .reading .prose :where(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2em 0;
+  }
+
+  /* Images in reading */
+  .reading .prose :where(img) {
+    border-radius: 8px;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+}
+
+/* ========================================
+   UTILITIES
+   ======================================== */
+@layer utilities {
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  .bg-soft {
+    background-color: var(--color-bg-soft);
+  }
+
+  .border-theme {
+    border-color: var(--color-border);
+  }
+
+  .nav-hover:hover {
+    background-color: var(--color-nav-hover);
+  }
+
+  .link-plain {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .link-plain:hover {
+    color: var(--color-link);
+  }
+}

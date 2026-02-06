@@ -1,7 +1,7 @@
-package com.example.service;
+package com.example.photo.service;
 
-import com.example.mapper.PhotoMapper;
-import com.example.model.Photo;
+import com.example.photo.repository.PhotoMapper;
+import com.example.photo.domain.Photo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

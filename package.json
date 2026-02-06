@@ -1,0 +1,14 @@
+{
+  "name": "hotgamja-lab",
+  "private": true,
+  "scripts": {
+    "dev": "npx tailwindcss -i ./src/main/resources/static/src/input.css -o ./src/main/resources/static/css/app.css --watch",
+    "build": "npx tailwindcss -i ./src/main/resources/static/src/input.css -o ./src/main/resources/static/css/app.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17",
+    "postcss": "^8.5.3",
+    "autoprefixer": "^10.4.21",
+    "@tailwindcss/typography": "^0.5.16"
+  }
+}

@@ -1,79 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - 페이지를 찾을 수 없습니다</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .error-container {
-            text-align: center;
-            max-width: 600px;
-        }
-
-        .error-code {
-            font-size: 120px;
-            font-weight: 700;
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1;
-        }
-
-        .error-message {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #999;
-        }
-
-        .error-description {
-            font-size: 16px;
-            margin-bottom: 40px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .btn-home {
-            display: inline-block;
-            padding: 12px 30px;
-            background: #e0e0e0;
-            color: #0a0a0a;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .btn-home:hover {
-            background: #fff;
-            transform: translateY(-2px);
-        }
-    </style>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <body>
-    <div class="error-container">
-        <div class="error-code">404</div>
-        <div class="error-message">페이지를 찾을 수 없습니다</div>
-        <div class="error-description">
-            요청하신 페이지가 존재하지 않거나 삭제되었습니다.<br>
-            URL을 다시 확인해주세요.
-        </div>
-        <a href="/" class="btn-home">홈으로 돌아가기</a>
+    <div th:replace="~{layout/site :: layout(~{::section})}">
+        <section class="flex flex-col items-center justify-center py-24 text-center">
+            <p class="text-7xl font-bold text-secondary mb-4">404</p>
+            <h1 class="text-xl font-semibold mb-2">Page not found</h1>
+            <p class="text-sm text-secondary mb-8">
+                The page you're looking for doesn't exist or has been moved.
+            </p>
+            <a th:href="@{/}"
+               class="text-sm px-5 py-2 rounded-md border border-theme nav-hover transition-colors link-plain">
+                Back to home
+            </a>
+        </section>
     </div>
 </body>
 </html>
