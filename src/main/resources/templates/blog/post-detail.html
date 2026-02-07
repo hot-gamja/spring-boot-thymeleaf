@@ -1,7 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <body>
-    <div th:replace="~{layout/site :: layout(~{::section})}">
+    <!-- highlight.js: loaded only on post-detail via extraHead injection -->
+    <th:block th:fragment="extraHead">
+        <link id="hljsLight" rel="stylesheet" th:href="@{/vendor/hljs/styles/github.min.css}">
+        <link id="hljsDark" rel="stylesheet" th:href="@{/vendor/hljs/styles/github-dark.min.css}" disabled>
+        <script defer th:src="@{/vendor/hljs/highlight.min.js}"></script>
+        <script defer>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Apply correct hljs theme based on current dark/light state
+                var isDark = document.documentElement.classList.contains('dark');
+                var lightEl = document.getElementById('hljsLight');
+                var darkEl = document.getElementById('hljsDark');
+                if (lightEl && darkEl) {
+                    lightEl.disabled = isDark;
+                    darkEl.disabled = !isDark;
+                }
+                // Init highlight.js
+                if (window.hljs) window.hljs.highlightAll();
+                // Watch for theme changes (toggle button / OS change)
+                new MutationObserver(function () {
+                    var dark = document.documentElement.classList.contains('dark');
+                    if (lightEl) lightEl.disabled = dark;
+                    if (darkEl) darkEl.disabled = !dark;
+                }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+            });
+        </script>
+    </th:block>
+
+    <div th:replace="~{layout/site :: layout(~{::section}, ~{:: extraHead})}">
         <section>
             <!-- Back to blog -->
             <nav class="pt-4 md:pt-6 mb-8">

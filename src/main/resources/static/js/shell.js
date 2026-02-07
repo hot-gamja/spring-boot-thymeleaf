@@ -1,18 +1,62 @@
 /**
- * shell.js — Mobile drawer + dark mode toggle
+ * shell.js — 3-state theme toggle (system/light/dark) + mobile drawer
  */
 (function () {
   'use strict';
 
-  // ---- Theme Toggle ----
+  // ---- Theme Toggle (3-state: system → light → dark → system) ----
+  var CYCLE = ['system', 'light', 'dark'];
   var toggle = document.getElementById('theme-toggle');
+  var iconSystem = document.getElementById('icon-system');
+  var iconLight = document.getElementById('icon-light');
+  var iconDark = document.getElementById('icon-dark');
+  var mql = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function getTheme() {
+    var t = localStorage.getItem('theme');
+    return (t === 'light' || t === 'dark') ? t : 'system';
+  }
+
+  function applyTheme(theme) {
+    var systemDark = mql.matches;
+    var isDark = (theme === 'dark') || (theme === 'system' && systemDark);
+    document.documentElement.classList.toggle('dark', isDark);
+  }
+
+  function updateIcon(theme) {
+    if (!iconSystem) return;
+    iconSystem.classList.toggle('hidden', theme !== 'system');
+    iconLight.classList.toggle('hidden', theme !== 'light');
+    iconDark.classList.toggle('hidden', theme !== 'dark');
+    if (toggle) toggle.setAttribute('aria-label', 'Theme: ' + theme);
+  }
+
+  function setTheme(theme) {
+    localStorage.setItem('theme', theme);
+    applyTheme(theme);
+    updateIcon(theme);
+  }
+
+  // Init: show correct icon on load
+  var current = getTheme();
+  applyTheme(current);
+  updateIcon(current);
+
+  // Click: cycle system → light → dark → system
   if (toggle) {
     toggle.addEventListener('click', function () {
-      var html = document.documentElement;
-      var isDark = html.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      var cur = getTheme();
+      var next = CYCLE[(CYCLE.indexOf(cur) + 1) % CYCLE.length];
+      setTheme(next);
     });
   }
+
+  // OS preference change: only react when theme is 'system'
+  mql.addEventListener('change', function () {
+    if (getTheme() === 'system') {
+      applyTheme('system');
+    }
+  });
 
   // ---- Mobile Drawer ----
   var openBtn = document.getElementById('drawer-open');
