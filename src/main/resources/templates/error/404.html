@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <body>
-    <div th:replace="~{layout/site :: layout(~{::section})}">
+    <div th:replace="~{layout/site :: layout(~{::section}, ~{})}">
         <section class="flex flex-col items-center justify-center py-24 text-center">
             <p class="text-7xl font-bold text-secondary mb-4">404</p>
             <h1 class="text-xl font-semibold mb-2">Page not found</h1>
