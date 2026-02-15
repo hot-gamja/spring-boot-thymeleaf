@@ -20,7 +20,12 @@
   function applyTheme(theme) {
     var systemDark = mql.matches;
     var isDark = (theme === 'dark') || (theme === 'system' && systemDark);
+
+    // Tailwind용: .dark 클래스 토글
     document.documentElement.classList.toggle('dark', isDark);
+
+    // 커스텀 CSS용: data-theme 속성 설정 (blog-base.css 호환)
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
   }
 
   function updateIcon(theme) {

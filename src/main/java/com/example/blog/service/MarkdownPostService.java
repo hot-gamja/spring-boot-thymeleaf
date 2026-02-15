@@ -2,11 +2,19 @@ package com.example.blog.service;
 
 import com.example.blog.domain.PostMeta;
 import com.example.blog.domain.RenderedPost;
+import com.vladsch.flexmark.ast.FencedCodeBlock;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.html.AttributeProvider;
 import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.html.IndependentAttributeProviderFactory;
+import com.vladsch.flexmark.html.renderer.AttributablePart;
+import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
+import com.vladsch.flexmark.util.html.MutableAttributes;
 import jakarta.annotation.PostConstruct;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -46,7 +54,9 @@ public class MarkdownPostService {
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, List.of(TablesExtension.create()));
         this.markdownParser = Parser.builder(options).build();
-        this.htmlRenderer = HtmlRenderer.builder(options).build();
+        this.htmlRenderer = HtmlRenderer.builder(options)
+                .attributeProviderFactory(new CodeLanguageAttributeProvider.Factory())
+                .build();
     }
 
     @PostConstruct
@@ -243,5 +253,29 @@ public class MarkdownPostService {
                 .filter(m -> !m.getSlug().equals(excludeSlug))
                 .limit(limit)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * AttributeProvider that adds language-xxx class to code blocks for syntax highlighting
+     */
+    static class CodeLanguageAttributeProvider implements AttributeProvider {
+        @Override
+        public void setAttributes(@NotNull Node node, @NotNull AttributablePart part, @NotNull MutableAttributes attributes) {
+            if (node instanceof FencedCodeBlock) {
+                FencedCodeBlock codeBlock = (FencedCodeBlock) node;
+                String info = codeBlock.getInfo().toString().trim();
+                // Add language-xxx class to the <code> element for highlight.js
+                if (!info.isEmpty()) {
+                    attributes.addValue("class", "language-" + info);
+                }
+            }
+        }
+
+        static class Factory extends IndependentAttributeProviderFactory {
+            @Override
+            public @NotNull AttributeProvider apply(@NotNull LinkResolverContext context) {
+                return new CodeLanguageAttributeProvider();
+            }
+        }
     }
 }

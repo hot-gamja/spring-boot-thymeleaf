@@ -3,10 +3,12 @@
  *
  * 역할:
  * - 폰트 크기 조절 (S/M/L)
- * - 테마 전환 (Light/Dark)
  * - 뷰 모드 전환 (Default/Image)
  * - 설정을 localStorage에 저장 (새로고침 후에도 유지)
  * - 스크롤 진행률 표시 (선택 사항)
+ *
+ * 참고:
+ * - 테마 전환은 shell.js에서 전역으로 처리됨 (system/light/dark)
  *
  * 사용 방법:
  * - HTML에서 <script src="/js/reader-controls.js"></script>로 로드
@@ -19,19 +21,16 @@
     // ========== 상수 정의 ==========
     const STORAGE_KEYS = {
         FONT_SIZE: 'blog-font-size',
-        THEME: 'blog-theme',
         VIEW_MODE: 'blog-view-mode'
     };
 
     const DEFAULT_VALUES = {
         FONT_SIZE: 'M',
-        THEME: 'dark',
         VIEW_MODE: 'default'
     };
 
     // ========== DOM 요소 참조 ==========
     let fontSizeButtons = [];
-    let themeButtons = [];
     let viewButtons = [];
     let postList = null;
     let scrollProgressText = null;
@@ -43,7 +42,6 @@
     function init() {
         // DOM 요소 가져오기
         fontSizeButtons = document.querySelectorAll('[data-font-size]');
-        themeButtons = document.querySelectorAll('[data-theme]');
         viewButtons = document.querySelectorAll('[data-view]');
         postList = document.querySelector('.post-list');
         scrollProgressText = document.querySelector('.scroll-progress-text');
@@ -70,11 +68,7 @@
         const savedFontSize = localStorage.getItem(STORAGE_KEYS.FONT_SIZE) || DEFAULT_VALUES.FONT_SIZE;
         applyFontSize(savedFontSize);
 
-        // 2. 테마 불러오기
-        const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) || DEFAULT_VALUES.THEME;
-        applyTheme(savedTheme);
-
-        // 3. 뷰 모드 불러오기
+        // 2. 뷰 모드 불러오기
         const savedViewMode = localStorage.getItem(STORAGE_KEYS.VIEW_MODE) || DEFAULT_VALUES.VIEW_MODE;
         applyViewMode(savedViewMode);
     }
@@ -92,16 +86,7 @@
             });
         });
 
-        // 2. 테마 버튼 클릭
-        themeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const theme = button.getAttribute('data-theme');
-                applyTheme(theme);
-                localStorage.setItem(STORAGE_KEYS.THEME, theme);
-            });
-        });
-
-        // 3. 뷰 모드 버튼 클릭
+        // 2. 뷰 모드 버튼 클릭
         viewButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const view = button.getAttribute('data-view');
@@ -138,32 +123,6 @@
         console.log(`📏 폰트 크기 변경: ${size}`);
     }
 
-    /**
-     * 테마 적용
-     *
-     * @param {string} theme - "light" 또는 "dark"
-     *
-     * 동작:
-     * 1. <html> 태그에 data-theme 속성 변경
-     * 2. CSS 변수가 자동으로 변경됨 (blog-base.css 참고)
-     * 3. 버튼 active 상태 업데이트
-     */
-    function applyTheme(theme) {
-        // <html> 태그에 속성 설정
-        document.documentElement.setAttribute('data-theme', theme);
-
-        // 버튼 active 상태 업데이트
-        themeButtons.forEach(button => {
-            const buttonTheme = button.getAttribute('data-theme');
-            if (buttonTheme === theme) {
-                button.classList.add('active');
-            } else {
-                button.classList.remove('active');
-            }
-        });
-
-        console.log(`🎨 테마 변경: ${theme}`);
-    }
 
     /**
      * 뷰 모드 적용
@@ -247,8 +206,6 @@
      * - Ctrl + 1: 폰트 S
      * - Ctrl + 2: 폰트 M
      * - Ctrl + 3: 폰트 L
-     * - Ctrl + D: 다크 테마
-     * - Ctrl + L: 라이트 테마
      */
     function initKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
@@ -271,18 +228,6 @@
                     applyFontSize('L');
                     localStorage.setItem(STORAGE_KEYS.FONT_SIZE, 'L');
                     break;
-                case 'd':
-                case 'D':
-                    e.preventDefault();
-                    applyTheme('dark');
-                    localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
-                    break;
-                case 'l':
-                case 'L':
-                    e.preventDefault();
-                    applyTheme('light');
-                    localStorage.setItem(STORAGE_KEYS.THEME, 'light');
-                    break;
             }
         });
 
@@ -295,11 +240,9 @@
      */
     window.resetReaderSettings = function() {
         localStorage.removeItem(STORAGE_KEYS.FONT_SIZE);
-        localStorage.removeItem(STORAGE_KEYS.THEME);
         localStorage.removeItem(STORAGE_KEYS.VIEW_MODE);
 
         applyFontSize(DEFAULT_VALUES.FONT_SIZE);
-        applyTheme(DEFAULT_VALUES.THEME);
         applyViewMode(DEFAULT_VALUES.VIEW_MODE);
 
         console.log('🔄 설정 초기화 완료');
@@ -324,12 +267,11 @@
  *
  * 1. 브라우저 콘솔에서 설정 확인:
  *    localStorage.getItem('blog-font-size')
- *    localStorage.getItem('blog-theme')
+ *    localStorage.getItem('blog-view-mode')
  *
  * 2. 설정 초기화:
  *    resetReaderSettings()
  *
  * 3. 프로그래밍 방식으로 변경 (디버깅용):
  *    document.documentElement.setAttribute('data-font-size', 'L')
- *    document.documentElement.setAttribute('data-theme', 'light')
  */

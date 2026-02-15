@@ -564,8 +564,8 @@ video {
   --color-link-hover: #2563eb;
   --color-selection-bg: #dbeafe;
   --color-selection-text: #1e40af;
-  --color-code-bg: #f3f4f6;
-  --color-code-border: #e5e7eb;
+  --color-code-bg: #f6f8fa;
+  --color-code-border: #d0d7de;
   --color-nav-hover: rgba(0, 0, 0, 0.04);
 }
 
@@ -579,8 +579,8 @@ video {
   --color-link-hover: #93bbfd;
   --color-selection-bg: #1e3a5f;
   --color-selection-text: #bfdbfe;
-  --color-code-bg: rgba(255, 255, 255, 0.06);
-  --color-code-border: rgba(255, 255, 255, 0.08);
+  --color-code-bg: #161b22;
+  --color-code-border: #30363d;
   --color-nav-hover: rgba(255, 255, 255, 0.06);
 }
 
@@ -594,8 +594,8 @@ video {
   --color-link-hover: #93bbfd !important;
   --color-selection-bg: #1e3a5f !important;
   --color-selection-text: #bfdbfe !important;
-  --color-code-bg: rgba(255, 255, 255, 0.06) !important;
-  --color-code-border: rgba(255, 255, 255, 0.08) !important;
+  --color-code-bg: #161b22 !important;
+  --color-code-border: #30363d !important;
   --color-nav-hover: rgba(255, 255, 255, 0.06) !important;
 }
 
@@ -1266,13 +1266,16 @@ img {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.875rem;
   line-height: 1.7;
-  background: var(--color-code-bg);
-  border: 1px solid var(--color-code-border);
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
   overflow-x: auto;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  /* Code block box (background/border) - applies to ALL pre blocks */
+  /* For hljs blocks, this overrides the highlight.js default backgrounds (#fff, #0d1117) */
+  /* with GitHub README-style backgrounds that work better with our theme */
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
 }
 
 .reading .prose :where(pre code) {
@@ -1282,6 +1285,15 @@ img {
   padding: 0;
   border-radius: 0;
   font-weight: 400;
+}
+
+/* Ensure highlight.js token colors are not overridden */
+/* The box background comes from pre, not code */
+.reading .prose :where(pre) code.hljs {
+  /* Explicitly transparent to let pre's background show through */
+  background: transparent !important;
+  /* Let highlight.js handle text colors for tokens */
+  /* No color override needed - hljs classes handle this */
 }
 
 /* Blockquote */
