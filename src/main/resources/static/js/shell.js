@@ -7,7 +7,6 @@
   // ---- Theme Toggle (3-state: system → light → dark → system) ----
   var CYCLE = ['system', 'light', 'dark'];
   var toggle = document.getElementById('theme-toggle');
-  var iconSystem = document.getElementById('icon-system');
   var iconLight = document.getElementById('icon-light');
   var iconDark = document.getElementById('icon-dark');
   var mql = window.matchMedia('(prefers-color-scheme: dark)');
@@ -29,10 +28,23 @@
   }
 
   function updateIcon(theme) {
-    if (!iconSystem) return;
-    iconSystem.classList.toggle('hidden', theme !== 'system');
-    iconLight.classList.toggle('hidden', theme !== 'light');
-    iconDark.classList.toggle('hidden', theme !== 'dark');
+    if (!iconLight || !iconDark) return;
+
+    var systemDark = mql.matches;
+    var showDark;
+
+    if (theme === 'system') {
+      // system일 때는 현재 OS 설정에 따라 아이콘 표시
+      showDark = systemDark;
+    } else if (theme === 'light') {
+      showDark = false; // sun 아이콘 표시
+    } else { // dark
+      showDark = true; // moon 아이콘 표시
+    }
+
+    iconLight.classList.toggle('hidden', showDark);
+    iconDark.classList.toggle('hidden', !showDark);
+
     if (toggle) toggle.setAttribute('aria-label', 'Theme: ' + theme);
   }
 
@@ -58,8 +70,10 @@
 
   // OS preference change: only react when theme is 'system'
   mql.addEventListener('change', function () {
-    if (getTheme() === 'system') {
+    var current = getTheme();
+    if (current === 'system') {
       applyTheme('system');
+      updateIcon('system'); // OS 설정 변경 시 아이콘도 업데이트
     }
   });
 
