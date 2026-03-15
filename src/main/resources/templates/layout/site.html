@@ -16,11 +16,11 @@
     <script>
         (function () {
             var t = localStorage.getItem('theme');
-            
-            if ( t !== 'light' && t !== 'dark' && t !== 'system') {
+
+            if (t !== 'light' && t !== 'dark' && t !== 'system') {
                 t = 'system';
             }
-            
+
             var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             var isDark = (t === 'dark') || (t === 'system' && systemDark);
             document.documentElement.classList.toggle('dark', isDark);
