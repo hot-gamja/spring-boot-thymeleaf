@@ -16,21 +16,27 @@
     <script>
         (function () {
             var t = localStorage.getItem('theme');
+
+            if (t !== 'light' && t !== 'dark' && t !== 'system') {
+                t = 'system';
+            }
+
             var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var isDark = (t === 'dark') || ((t === 'system' || !t) && systemDark);
+            var isDark = (t === 'dark') || (t === 'system' && systemDark);
             document.documentElement.classList.toggle('dark', isDark);
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
         })();
     </script>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="flex flex-col min-h-screen">
 
     <!-- ===== HEADER / NAV ===== -->
     <header class="sticky top-0 z-40 border-b border-theme"
             style="background-color: var(--color-bg); backdrop-filter: blur(8px); background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);">
-        <nav class="mx-auto max-w-shell px-4 md:px-6 h-14 flex items-center justify-between">
+        <nav class="flex items-center justify-between px-4 mx-auto max-w-shell md:px-6 h-14">
             <!-- Left: Logo + nav links -->
             <div class="flex items-center gap-1">
-                <a th:href="@{/}" class="link-plain font-semibold text-base mr-4 shrink-0">
+                <a th:href="@{/}" class="mr-4 text-base font-semibold link-plain shrink-0">
                     Hot Gamja
                 </a>
                 <!-- Desktop nav links -->
@@ -54,30 +60,30 @@
             <div class="flex items-center gap-1">
                 <a href="https://github.com/hot-gamja"
                    target="_blank" rel="noopener noreferrer"
-                   class="link-plain p-2 rounded-md nav-hover transition-colors hidden sm:inline-flex"
+                   class="hidden p-2 transition-colors rounded-md link-plain nav-hover sm:inline-flex"
                    title="GitHub">
-                    <img th:src="@{/icons/github.svg}" class="h-5 w-5 dark:invert" alt="GitHub">
+                    <img th:src="@{/icons/github.svg}" class="w-5 h-5 dark:invert" alt="GitHub">
                 </a>
                 <a th:href="@{/rss}" title="RSS"
-                   class="link-plain p-2 rounded-md nav-hover transition-colors hidden sm:inline-flex">
-                    <img th:src="@{/icons/rss.svg}" class="h-5 w-5 dark:invert" alt="RSS">
+                   class="hidden p-2 transition-colors rounded-md link-plain nav-hover sm:inline-flex">
+                    <img th:src="@{/icons/rss.svg}" class="w-5 h-5 dark:invert" alt="RSS">
                 </a>
                 <!-- Theme toggle (3-state: system / light / dark) -->
                 <button id="theme-toggle"
-                        class="p-2 rounded-md nav-hover transition-colors"
+                        class="p-2 transition-colors rounded-md nav-hover"
                         type="button"
                         aria-label="Theme: system">
-                    <img id="icon-light" th:src="@{/icons/sun.svg}" class="h-5 w-5 dark:invert hidden" alt="Light theme">
-                    <img id="icon-dark" th:src="@{/icons/moon.svg}" class="h-5 w-5 dark:invert hidden" alt="Dark theme">
+                    <img id="icon-light" th:src="@{/icons/sun.svg}" class="hidden w-5 h-5 dark:invert" alt="Light theme">
+                    <img id="icon-dark" th:src="@{/icons/moon.svg}" class="hidden w-5 h-5 dark:invert" alt="Dark theme">
                 </button>
                 <!-- Mobile menu button -->
                 <button id="drawer-open"
-                        class="p-2 rounded-md nav-hover transition-colors md:hidden"
+                        class="p-2 transition-colors rounded-md nav-hover md:hidden"
                         type="button"
                         aria-label="Open menu"
                         aria-expanded="false"
                         aria-controls="mobile-drawer">
-                    <img th:src="@{/icons/menu.svg}" class="h-5 w-5 dark:invert" alt="Menu">
+                    <img th:src="@{/icons/menu.svg}" class="w-5 h-5 dark:invert" alt="Menu">
                 </button>
             </div>
         </nav>
@@ -85,25 +91,25 @@
 
     <!-- ===== MOBILE DRAWER ===== -->
     <div id="drawer-overlay"
-         class="fixed inset-0 z-50 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-200"
+         class="fixed inset-0 z-50 transition-opacity duration-200 opacity-0 pointer-events-none bg-black/50"
          aria-hidden="true"></div>
 
     <aside id="mobile-drawer"
-           class="fixed top-0 right-0 z-50 h-full w-64 translate-x-full transition-transform duration-200 ease-out flex flex-col"
+           class="fixed top-0 right-0 z-50 flex flex-col w-64 h-full transition-transform duration-200 ease-out translate-x-full"
            style="background-color: var(--color-bg);"
            aria-hidden="true"
            role="dialog"
            aria-label="Navigation menu">
-        <div class="flex items-center justify-between px-4 h-14 border-b border-theme">
-            <span class="font-semibold text-sm">Menu</span>
+        <div class="flex items-center justify-between px-4 border-b h-14 border-theme">
+            <span class="text-sm font-semibold">Menu</span>
             <button id="drawer-close"
-                    class="p-2 rounded-md nav-hover transition-colors"
+                    class="p-2 transition-colors rounded-md nav-hover"
                     type="button"
                     aria-label="Close menu">
-                <img th:src="@{/icons/x.svg}" class="h-5 w-5 dark:invert" alt="Close">
+                <img th:src="@{/icons/x.svg}" class="w-5 h-5 dark:invert" alt="Close">
             </button>
         </div>
-        <nav class="flex-1 overflow-y-auto py-4 px-2">
+        <nav class="flex-1 px-2 py-4 overflow-y-auto">
             <a th:href="@{/}"
                class="link-plain flex items-center px-3 py-2.5 rounded-md text-sm nav-hover transition-colors">
                 Home
@@ -124,22 +130,22 @@
             <a href="https://github.com/hot-gamja"
                target="_blank" rel="noopener noreferrer"
                class="link-plain flex items-center gap-2 px-3 py-2.5 rounded-md text-sm nav-hover transition-colors">
-                <img th:src="@{/icons/github.svg}" class="h-4 w-4 dark:invert" alt="">
+                <img th:src="@{/icons/github.svg}" class="w-4 h-4 dark:invert" alt="">
                 GitHub
             </a>
         </nav>
     </aside>
 
     <!-- ===== MAIN CONTENT ===== -->
-    <main class="flex-1 mx-auto w-full max-w-shell px-4 md:px-6 py-8 md:py-12">
+    <main class="flex-1 w-full px-4 py-8 mx-auto max-w-shell md:px-6 md:py-12">
         <div th:replace="${content}">
             <p>Page content goes here</p>
         </div>
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="border-t border-theme mt-auto">
-        <div class="mx-auto max-w-shell px-4 md:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-secondary">
+    <footer class="mt-auto border-t border-theme">
+        <div class="flex flex-col items-center justify-between gap-2 px-4 py-6 mx-auto text-sm max-w-shell md:px-6 sm:flex-row text-secondary">
             <p>CC BY-NC-SA 4.0 2024-PRESENT Hot Gamja</p>
             <div class="flex items-center gap-4">
                 <a href="https://github.com/hot-gamja" target="_blank" rel="noopener noreferrer"
